@@ -3,22 +3,6 @@ const mongoose = require('mongoose');
 const { Schema, model, SchemaTypes } = mongoose;
 
 const bookSchema = new Schema({
-  image: {
-    required: true,
-    type: SchemaTypes.String,
-},
-destination: {
-    required: true,
-    type: SchemaTypes.String,
-},
-imagePath:{
-  required: true,
-  type: SchemaTypes.String,
-},
-filename: {
-    required: true,
-    type: SchemaTypes.String,
-},
   name: {
     required: true,
     type: SchemaTypes.String,
@@ -29,7 +13,11 @@ filename: {
   },
   siteNumber: {
     required: true,
-    type: SchemaTypes.Number,
+    type: SchemaTypes.String,
+  },
+  photo: {
+    required: true,
+    type: SchemaTypes.Buffer,
   },
   author: {
     required: true,

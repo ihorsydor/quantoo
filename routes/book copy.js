@@ -1,15 +1,14 @@
 var express = require('express');
 var bookController = require('../controllers/book.controller')
+
 var router = express.Router();
 const upload = require('./../multerConfig')
 
-
-
-router.get('/images/:imageName', bookController.getImage);
+/* GET users listing. */
 router.get('/', bookController.getAllBook);
 router.get('/:id', bookController.getOneBook);
-router.post('/', upload.single('image'), bookController.createBook);
-router.put('/:id', upload.single('image'), bookController.updateBook);
-router.delete('/:id/:filename', bookController.deleteBook);
+router.post('/', upload.single('file'), bookController.createBook);
+router.put('/:id', bookController.updateBook);
+router.delete('/:id', bookController.deleteBook);
 
 module.exports = router;

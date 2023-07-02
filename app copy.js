@@ -13,7 +13,6 @@ const fs = require('fs');
 require('dotenv').config();
 
 
-
 var app = express();
 
 const allowedOrigins = ['http://localhost:3001'];
@@ -33,7 +32,7 @@ app.use(cors({
   credentials: true // Umożliwienie przesyłania danych uwierzytelniania (credentials)
 }));
 
-app.use('/book', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
@@ -45,27 +44,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', apiRouter);
-// app.use('/uploads', express.static('uploads'));
-
-// // Ustawienie ścieżki do folderu, w którym znajdują się obrazy
-// const imgFolder = path.join(__dirname, 'images');
-
-// // Definicja ścieżki, na której można odczytać obrazy
-// app.get('/images/:imageName', (req, res) => {
-//   const imageName = req.params.imageName;
-//   const imagePath = path.join(imgFolder, imageName);
-  
-//   // Sprawdzenie, czy plik istnieje
-//   fs.access(imagePath, fs.constants.R_OK, (err) => {
-//     if (err) {
-//       // Plik nie istnieje lub jest nieodczytalny
-//       res.status(404).send('Obrazek nie został znaleziony');
-//     } else {
-//       // Plik istnieje - wysyłanie odpowiedzi z obrazkiem
-//       res.sendFile(imagePath);
-//     }
-//   });
-// });
+app.use('/uploads', express.static('uploads'));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -1,5 +1,5 @@
 const Form = require('../models/form.model')
-
+const Author = require('../models/author.model')
 
 const formController = {
     getAllForm: async (req, res, next) => {
@@ -26,23 +26,40 @@ const formController = {
     createForm: async (req, res, next) => {
         try {
             const {
-                name, form2, selectValue
+                input,
+                input2,
+                input3,
+                author: authorId,
             } = req.body
 
 
+            const author = await Author.findById(authorId); 
+    console.log(author)
+            if (!author) {
+              return res.status(404).send("Autor nie został znaleziony."); 
+            }
 
-            const form = new Form({
-                name, form2, selectValue
-            });
 
-            const createdForm = await form.save();
-
-            res.send(createdForm.toObject());
+          const newForm = new Form({
+            image: req.file.originalname,
+            destination: req.file.destination,
+            filename: req.file.filename,
+            input,
+            input2,
+            input3,
+            author: author._id
+            
+          });
+      
+          console.log(newForm)
+          const createForm = await newForm.save();
+      
+          res.status(200).json(createForm);
         } catch (error) {
-            res.status(500);
-            res.send(error);
+          console.error(error);
+          res.status(500).json({ error: 'Wystąpił błąd serwera' });
         }
-    },
+      },
     updateForm: async (req, res, next) => {
         try {
             const { id } = req.params

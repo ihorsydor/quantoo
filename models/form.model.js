@@ -3,24 +3,41 @@ var mongoose = require('mongoose')
 const {Schema, model, SchemaTypes}  = mongoose;
 
 const formSchema = new Schema({
-    name: {
+    image: {
         required: true,
         type: SchemaTypes.String,
     },
-    
-    form2: {
+    destination: {
         required: true,
         type: SchemaTypes.String,
     },
-
-    selectValue: {
+    filename: {
         required: true,
         type: SchemaTypes.String,
     },
+    input: {
+        required: true,
+        type: SchemaTypes.String,
+    },
+    input2: {
+        required: true,
+        type: SchemaTypes.String,
+    },
+    input3: {
+        required: true,
+        type: SchemaTypes.String,
+    },
+    author: {
+        required: true,
+        type: Schema.Types.ObjectId,
+        ref: "Author",
+      },
 
 },{
     timestamp: true
 });
+
+
 
 const formModel = model('Form', formSchema)
 
